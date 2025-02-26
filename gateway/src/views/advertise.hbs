@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>FlixTube: Advertise</title>
+
+    <link rel="stylesheet" href="css/tailwind.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <style>
+        /* Ensure all ad images have the same size */
+        .ad-image {
+            width: 150px; /* Set a fixed width */
+            height: 100px; /* Set a fixed height */
+            object-fit: contain; /* Ensures the image fits within the given size without distortion */
+            border-radius: 8px; /* Optional: rounded corners for better aesthetics */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex flex-col">
+        <div class="border-b-2 bg-gray-100">
+            <div class="nav flex flex-row items-center mt-1 p-2">
+                <div class="text-xl font-bold">
+                    FlixTube
+                </div>
+                <div class="ml-4">
+                    <a href="/">Videos</a>
+                </div>
+                <div class="ml-4">
+                    <a href="/upload">Upload</a>
+                </div>
+                <div class="ml-4">
+                    <a href="/history">History</a>
+                </div>
+                <div class="ml-4 border-b-2 border-blue-600">
+                    <a href="/advertise">Advertise</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-4">
+            <h1>Sponsored Ads</h1>
+            <div id="ads-list" class="m-4">
+                {{#if ads}}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Ad Name</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each ads}}
+                                <tr>
+                                    <td>
+                                        <img class="ad-image" src="data:image/png;base64,{{this.image}}" alt="{{this.name}}">
+                                    </td>
+                                    <td>{{this.name}}</td>
+                                    <td>
+                                        <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                {{else}}
+                    <p>No Ads Available.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

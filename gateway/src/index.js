@@ -69,6 +69,27 @@ async function main() {
         res.render("history", { videos: historyResponse.data.history });
     });
 
+    app.get("/advertise", async (req, res) => {
+        try {
+            const adsResponse = await axios.get("http://advertise/advertise");
+
+            // Process the ads to remove incorrect prefixes
+            const ads = adsResponse.data.map(ad => {
+                return {
+                    ...ad,
+                    image: ad.image.replace("http://advertisedata:image/png;base64,", "") // Remove the unwanted prefix
+                };
+            });
+
+            res.render("advertise", { ads });
+
+        } catch (error) {
+            console.error("Error fetching ads:", error.message);
+            res.render("advertise", { ads: [] });
+        }
+    });
+
+
     //
     // HTTP GET route that streams video to the user's browser.
     //
